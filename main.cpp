@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <cstdint>
 
+// 最低賃金
 const int32_t  minimunSalary = 1072;
+
+// 給料形式の名前のenum
 enum class SalalyType : int32_t{
 	NORMAL = 0,
 	RECURSIVE
 };
 
-
+// 再帰計算関数
 int32_t CalcRecursiveSalary(int32_t loop, int32_t kMaxLoop, int32_t currentSalary){
 
 	int32_t salary = currentSalary * 2 - 50;
@@ -18,6 +21,7 @@ int32_t CalcRecursiveSalary(int32_t loop, int32_t kMaxLoop, int32_t currentSalar
 	}
 };
 
+// 給料計算関数
 int32_t CalcSalary(SalalyType salaryType, int32_t hours){
 
 	int32_t salary = 0;
