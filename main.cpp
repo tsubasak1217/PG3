@@ -7,7 +7,7 @@ T Min(T value1, T value2){ return value1 < value2 ? value1 : value2; }
 // charはテンプレ解除
 template<>
 char Min<char>(char value1, char value2){ 
-	printf("char型は使用できません。\n"); 
+	printf("数字以外は代入できません\n"); 
 	return 0;
 }
 
