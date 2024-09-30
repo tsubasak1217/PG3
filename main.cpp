@@ -1,23 +1,60 @@
 #include <stdio.h>
+#include <cstdint>
 
-// テンプレ
-template <typename T>
-T Min(T value1, T value2){ return value1 < value2 ? value1 : value2; }
+const int32_t  minimunSalary = 1072;
+enum class SalalyType : int32_t{
+	NORMAL = 0,
+	RECURSIVE
+};
 
-// charはテンプレ解除
-template<>
-char Min<char>(char value1, char value2){ 
-	printf("数字以外は代入できません\n"); 
-	return 0;
-}
+
+int32_t CalcRecursiveSalary(int32_t loop, int32_t kMaxLoop, int32_t currentSalary){
+
+	int32_t salary = currentSalary * 2 - 50;
+	if(loop + 1 >= kMaxLoop){
+		return salary;
+	} else{
+		return CalcRecursiveSalary(loop + 1, kMaxLoop, salary);
+	}
+};
+
+int32_t CalcSalary(SalalyType salaryType, int32_t hours){
+
+	int32_t salary = 0;
+
+	switch(salaryType){
+
+	case SalalyType::NORMAL:
+		salary = minimunSalary * hours;
+		return salary;
+		break;
+
+	case SalalyType::RECURSIVE:
+		return CalcRecursiveSalary(0, hours, 100);
+		break;
+
+	default:
+		return 0;
+		break;
+
+	}
+};
+
+
 
 int main(){ //開く
 
-	// 出力
-	printf("Min<int>(114,514) = %d\n", Min<int>(114, 514));
-	printf("Min<float>(11.4f,51.4f) = %f\n", Min<float>(11.4f, 51.4f));
-	printf("Min<double>(1919.0,810.0) = %lf\n", Min<double>(1919.0, 810.0));
-	printf("Min<char>(a,b) = %c\n", Min<char>('a', 'b'));
+	// 通常形式の計算12時間分
+	for(int32_t i = 1; i <= 12; i++){
+		printf("NORMAL: %d 時間 : %d 円\n", i, CalcSalary(SalalyType::NORMAL, i));
+	}
+
+	printf("\n");
+
+	// 再帰形式の計算12時間分
+	for(int32_t i = 1; i <= 12; i++){
+		printf("RECURSIVE: %d 時間 : %d 円\n", i, CalcSalary(SalalyType::RECURSIVE, i));
+	}
 
 	return 0;
 } //閉じる
