@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <random>
 #include <chrono>
-
+#include <functional>
 
 /////////////////////////////////////////////////
 // 乱数生成
@@ -24,25 +24,10 @@ int32_t Random(int min, int max){
 
 
 /////////////////////////////////////////////////
-// 結果の回答関数
-/////////////////////////////////////////////////
-
-void Correct(){
-	printf("正解！\n\n");
-}
-
-void Icorrect(){
-	printf("不正解...\n\n");
-}
-
-typedef void(*pFunc)();
-
-
-/////////////////////////////////////////////////
 // 時限発動
 /////////////////////////////////////////////////
 
-void TimedFunc(float sec, pFunc func){
+void SetTimeCount(float sec, std::function<void()> pFunc){
 
 	// エントリー時の時間
 	std::chrono::steady_clock::time_point enterTime_ = std::chrono::high_resolution_clock::now();
@@ -54,7 +39,7 @@ void TimedFunc(float sec, pFunc func){
 
 		// 指定時間が経過したら
 		if(totalTime.count() >= sec){
-			(*func)();//発動
+			(pFunc)();//発動
 			break;
 		}
 	}
@@ -67,7 +52,7 @@ void TimedFunc(float sec, pFunc func){
 int main(){ //開く
 
 	// 関数ポインタ
-	pFunc func;
+	std::function<void()>func;
 	float waitTime = 3.0f;
 
 	//
@@ -98,12 +83,12 @@ int main(){ //開く
 				printf("結果は...");
 
 				if(result % 2 == input){
-					func = &Correct;
-					TimedFunc(waitTime, func);
+					func = [](){printf("正解！\n\n"); };
+					SetTimeCount(waitTime, func);
 
 				} else{
-					func = &Icorrect;
-					TimedFunc(waitTime, func);
+					func = [](){printf("不正解...\n\n"); };
+					SetTimeCount(waitTime, func);
 				}
 
 				break;
