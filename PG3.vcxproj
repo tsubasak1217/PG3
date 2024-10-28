@@ -128,13 +128,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compare.cpp" />
+    <ClCompile Include="BaseHuman.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Virtual.cpp" />
+    <ClCompile Include="Otsu.cpp" />
+    <ClCompile Include="TakeC.cpp" />
+    <ClCompile Include="Tsubasa.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Compare.h" />
-    <ClInclude Include="Virtual.h" />
+    <ClInclude Include="BaseHuman.h" />
+    <ClInclude Include="Otsu.h" />
+    <ClInclude Include="TakeC.h" />
+    <ClInclude Include="Tsubasa.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
