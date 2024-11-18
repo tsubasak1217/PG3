@@ -1,19 +1,19 @@
 ﻿#include <stdio.h>
 #include <string>
 #include <iostream>
-#include "Circle.h"
-#include "Rectangle.h"
+#include <list>
+#include "BaseYamanoteLine.h"
+#include "YamanoteLine2022.h"
 
 int main(){ //開く
 
-	IShape* shapes[] = {new Circle(1.0f),new Rectangle(5.0f,4.0f)};
-	for(int i = 0; i < 2; i++){
-		shapes[i]->Draw();
-	}
+	std::list<BaseYamanoteLine> stationLists;
+	stationLists.emplace_back(YamanoteLine1970());
+	stationLists.emplace_back(YamanoteLine2019());
+	stationLists.emplace_back(YamanoteLine2022());
 
-	for(int i = 0; i < 2; i++){
-		delete shapes[i];
-		shapes[i] = nullptr;
+	for(auto& list : stationLists){
+		list.Output();
 	}
 
 	return 0;

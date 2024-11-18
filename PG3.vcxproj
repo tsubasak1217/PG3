@@ -127,14 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="BaseYamanoteLine.cpp" />
+    <ClCompile Include="YamanoteLine1970.cpp" />
+    <ClCompile Include="YamanoteLine2019.cpp" />
+    <ClCompile Include="YamanoteLine2022.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="IShape.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="BaseYamanoteLine.h" />
+    <ClInclude Include="YamanoteLine1970.h" />
+    <ClInclude Include="YamanoteLine2019.h" />
+    <ClInclude Include="YamanoteLine2022.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
