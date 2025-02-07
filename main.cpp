@@ -1,40 +1,28 @@
 ﻿#include <iostream>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-
-std::mutex mtx;
-std::condition_variable cv;
-int currentThread = 0; // 現在出力すべきスレッド番号
-
-void threadFunction(int threadID, int numThreads){
-    std::unique_lock<std::mutex> lock(mtx);
-
-    // 自分のスレッド番号が現在のターンになるまで待機
-    cv.wait(lock, [&]() { return threadID == currentThread; });
-
-    // スレッド番号を出力
-    printf("thread %d\n", threadID);
-
-    // 次のスレッド番号を設定して通知
-    currentThread++;
-    cv.notify_all();
-}
+#include <string>
+#include <chrono>
 
 int main(){
-    // スレッド数の設定
-    const int numThread = 3;
-    std::thread threads[numThread];
 
-    // スレッドの生成
-    for(int i = 0; i < numThread; ++i) {
-        threads[i] = std::thread(threadFunction, i, numThread);
-    }
+    std::string str(100000,'a');
+    std::string dest;
+	printf("%d文字のコピーとムーブの速度比較\n", (int)str.size());
 
-    // スレッドの終了を待機
-    for(int i = 0; i < numThread; ++i) {
-        threads[i].join();
-    }
+    // コピーの時間計測
+	auto start = std::chrono::steady_clock::now();
+	dest = str;
+	auto end = std::chrono::steady_clock::now();
+	auto copy_time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+	// ムーブの時間計測
+	start = std::chrono::steady_clock::now();
+	dest = std::move(str);
+	end = std::chrono::steady_clock::now();
+	auto move_time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+	// 結果の出力
+	printf("コピー : %dμs\n", copy_time);
+	printf("ムーブ : %dμs\n", move_time);
 
     return 0;
 }
